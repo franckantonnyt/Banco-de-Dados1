@@ -64,3 +64,23 @@ select F.idFunc, nomeFunc, count(*)
 from Funcionario F, Trabalha T, Projeto P
 where numHoras > 10.00 and T.idProj = P.idProj and F.idFunc = T.idFunc
 group by F.idFunc, nomeFunc;
+-- 14 - Selecione o nome dos funcionários e a quantidade de projetos que cada um trabalha. Selecione
+-- apenas os funcionários que trabalham em mais de um projeto.
+select F.idFunc, nomeFunc, count(*)
+from Funcionario F, Trabalha T, Projeto P
+where T.idProj = P.idProj and F.idFunc = T.idFunc
+group by F.idFunc, nomeFunc
+having count(*) > 1;
+-- 15 - Selecione a soma dos salários dos funcionários que trabalham em departamentos que controlam
+-- mais de um projeto. O resultado deve vir agrupado por departamento.
+select D.nomeDepto, sum(salario)
+from Funcionario F, Trabalha T, Projeto P, Departamento D
+where D.idDepto = P.idDepto and P.idProj = T.idProj and T.idFunc = F.idFunc
+group by D.nomeDepto
+having count(*) > 1;
+-- 16 - Selecione o nome dos funcionários que ganham mais que o maior salário dos funcionários do
+-- departamento de nome ‘Construção’. O resultado deve vir ordenado alfabeticamente pelo nome.
+select nomeFunc, salario
+from Funcionario 
+-- 17 - Selecione o nome do funcionário e o nome do seu supervisor para todos os funcionários que
+-- não são supervisionados pelo funcionario de nome 'Frank T. Santos'.
